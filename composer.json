@@ -1,0 +1,13 @@
+{
+    "name": "Janus File API",
+    "description": "Janus File API",
+    "license": "BSD-3-Clause",
+    "require": {
+        "php": ">=5.6",
+	    "zendframework/zendframework": "2.4.*",
+        "zfcampus/zf-api-problem": "1.*",
+        "phpunit/phpunit": "3.*",
+        "evandotpro/edp-superluminal": "dev-master",
+        "aws/aws-sdk-php": "2.*"
+    }
+}
