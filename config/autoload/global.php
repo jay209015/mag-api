@@ -17,16 +17,4 @@ return array(
             'Zend\Db\Adapter\AdapterAbstractServiceFactory',
         ),
     ),
-    'file_filters' => array(
-        'customer_files' => array(
-            'SITE',
-            'PORTAL',
-            'CUSTOMQUOTE',
-            'MAILINGLIST',
-            'SITE_UPLOAD',
-            'PORTAL_UPLOAD',
-            'CUSTOMQUOTE_UPLOAD',
-            'MAILINGLIST_UPLOAD'
-        )
-    )
 );
