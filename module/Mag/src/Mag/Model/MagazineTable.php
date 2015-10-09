@@ -1,6 +1,6 @@
 <?php
 /**
- * User: jayrivers
+ * Magazine: jayrivers
  * Date: 10/7/15
  * Time: 11:17 AM
  */
@@ -27,29 +27,26 @@ class MagazineTable extends AbstractTableGateway
     }
 
     public function save(Magazine $Magazine){
-        $data = array(
-            'key' => $Magazine->key,
-            'value'  => $Magazine->value,
-        );
+        $data = $Magazine->toArray();
 
         $id = (int) $Magazine->id;
         if ($id == 0) {
             return $this->tableGateway->insert($data);
         } else {
-            if ($this->fetch($Magazine->key)) {
+            if ($this->fetch($Magazine->id)) {
                 return $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Magazine key does not exist');
+                return false;
             }
         }
     }
 
-    public function fetch($key)
+    public function fetch($id)
     {
-        $rowset = $this->tableGateway->select(array('key' => $key));
+        $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $key");
+            return false;
         }
         return $row;
     }

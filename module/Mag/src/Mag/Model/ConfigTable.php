@@ -39,7 +39,7 @@ class ConfigTable extends AbstractTableGateway
             if ($this->fetch($Config->key)) {
                 return $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Config key does not exist');
+                return false;
             }
         }
     }
@@ -49,7 +49,7 @@ class ConfigTable extends AbstractTableGateway
         $rowset = $this->tableGateway->select(array('key' => $key));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $key");
+            return false;
         }
         return $row;
     }

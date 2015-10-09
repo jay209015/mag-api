@@ -1,6 +1,6 @@
 <?php
 /**
- * Slot: jayrivers
+ * OrderItem: jayrivers
  * Date: 10/7/15
  * Time: 11:17 AM
  */
@@ -10,8 +10,7 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
 use Zend\Db\TableGateway\AbstractTableGateway;
 
-
-class SlotTable extends AbstractTableGateway
+class OrderItemTable extends AbstractTableGateway
 {
 
     protected $tableGateway;
@@ -27,14 +26,14 @@ class SlotTable extends AbstractTableGateway
         return $resultSet->toArray();
     }
 
-    public function save(Slot $Slot){
-        $data = $Slot->toArray();
+    public function save(OrderItem $OrderItem){
+        $data = $OrderItem->toArray();
 
-        $id = (int) $Slot->id;
+        $id = (int) $OrderItem->id;
         if ($id == 0) {
             return $this->tableGateway->insert($data);
         } else {
-            if ($this->fetch($Slot->id)) {
+            if ($this->fetch($OrderItem->id)) {
                 return $this->tableGateway->update($data, array('id' => $id));
             } else {
                 return false;
@@ -52,9 +51,9 @@ class SlotTable extends AbstractTableGateway
         return $row;
     }
 
-    public function calculateAvailable(Magazine $Magazine, OrderTable $OrderTable)
+    public function fetchByOrderId($order_id)
     {
-        $total_slots = $Magazine->pages * 6;
-        $serviceManager = $this->getServiceLocator();
+        $resultSet = $this->tableGateway->select(array('order_id' => $order_id));
+        return $resultSet;
     }
 }

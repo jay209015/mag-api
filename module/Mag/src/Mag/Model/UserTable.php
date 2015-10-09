@@ -36,7 +36,7 @@ class UserTable extends AbstractTableGateway
             if ($this->fetch($User->id)) {
                 return $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('User key does not exist');
+                return false;
             }
         }
     }
@@ -46,7 +46,7 @@ class UserTable extends AbstractTableGateway
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $id");
+            return false;
         }
         return $row;
     }
@@ -56,7 +56,7 @@ class UserTable extends AbstractTableGateway
         $rowset = $this->tableGateway->select(array('email' => $email));
         $row = $rowset->current();
         if (!$row) {
-            throw new \Exception("Could not find row $email");
+            return false;
         }
         return $row;
     }

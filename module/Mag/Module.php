@@ -22,6 +22,10 @@ use Mag\Model\Magazine;
 use Mag\Model\MagazineTable;
 use Mag\Model\Slot;
 use Mag\Model\SlotTable;
+use Mag\Model\Order;
+use Mag\Model\OrderTable;
+use Mag\Model\OrderItem;
+use Mag\Model\OrderItemTable;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
@@ -170,13 +174,41 @@ class Module
                 },
                 'SlotTable' => function($sm) {
                     $tableGateway = $sm->get('SlotTableGateway');
-                    return new SlotTable($tableGateway);
+                    $SlotTable = new SlotTable($tableGateway);
+                    $SlotTable->setServiceLocator($sm);
+                    return $SlotTable;
                 },
                 'SlotTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('db_master');
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Slot());
                     return new TableGateway('slot', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Order' => function($sm) {
+                    return new Order();
+                },
+                'OrderTable' => function($sm) {
+                    $tableGateway = $sm->get('OrderTableGateway');
+                    return new OrderTable($tableGateway);
+                },
+                'OrderTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('db_master');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Order());
+                    return new TableGateway('order', $dbAdapter, null, $resultSetPrototype);
+                },
+                'OrderItem' => function($sm) {
+                    return new OrderItem();
+                },
+                'OrderItemTable' => function($sm) {
+                    $tableGateway = $sm->get('OrderItemTableGateway');
+                    return new OrderItemTable($tableGateway);
+                },
+                'OrderItemTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('db_master');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new OrderItem());
+                    return new TableGateway('order_item', $dbAdapter, null, $resultSetPrototype);
                 },
             )
         );
