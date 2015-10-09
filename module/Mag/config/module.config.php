@@ -11,15 +11,6 @@ return array(
                     ),
                 ),
             ),
-            'getSlots' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => '/mag/getSlots',
-                    'defaults' => array(
-                        'controller' => 'Mag\Controller\Slot'
-                    ),
-                ),
-            ),
             'getConfig' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
@@ -44,12 +35,87 @@ return array(
                     ),
                 ),
             ),
+            'getUser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/mag/getUser[/:id]',
+                    'constriants' => array(
+                        'id' => '[a-z0-9_]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Mag\Controller\User'
+                    ),
+                ),
+            ),
+            'setUser' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/mag/setUser[/:id]',
+                    'constriants' => array(
+                        'id' => '[a-z0-9]'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Mag\Controller\User'
+                    ),
+                ),
+            ),
+            'getMagazine' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/mag/getMagazine[/:id]',
+                    'constriants' => array(
+                        'id' => '[a-z0-9_]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Mag\Controller\Magazine'
+                    ),
+                ),
+            ),
+            'setMagazine' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/mag/setMagazine[/:id]',
+                    'constriants' => array(
+                        'id' => '[a-z0-9]'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Mag\Controller\Magazine'
+                    ),
+                ),
+            ),
+            'getSlot' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/mag/getSlot[/:id]',
+                    'constriants' => array(
+                        'id' => '[a-z0-9_]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Mag\Controller\Slot'
+                    ),
+                ),
+            ),
+            'setSlot' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => '/mag/setSlot[/:id]',
+                    'constriants' => array(
+                        'id' => '[a-z0-9]'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Mag\Controller\Slot'
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
             'Mag\Controller\Slot'                  => 'Mag\Controller\SlotController',
             'Mag\Controller\Config'                  => 'Mag\Controller\ConfigController',
+            'Mag\Controller\User'                  => 'Mag\Controller\UserController',
+            'Mag\Controller\Magazine'                  => 'Mag\Controller\MagazineController',
+            'Mag\Controller\Slot'                  => 'Mag\Controller\SlotController',
         ),
     ),
     'view_manager' => array(

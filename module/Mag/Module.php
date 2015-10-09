@@ -11,11 +11,17 @@ namespace Mag;
 
 
 use Mag\Listener\BasicAuthenticationListener;
-use Mag\Model\ConfigItem;
+
 use Mag\Service\BasicAuthenticationService;
 
-use Mag\Model\Config;
+use Mag\Model\ConfigItem;
 use Mag\Model\ConfigTable;
+use Mag\Model\User;
+use Mag\Model\UserTable;
+use Mag\Model\Magazine;
+use Mag\Model\MagazineTable;
+use Mag\Model\Slot;
+use Mag\Model\SlotTable;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
@@ -132,6 +138,45 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new ConfigItem());
                     return new TableGateway('config', $dbAdapter, null, $resultSetPrototype);
+                },
+                'User' => function($sm) {
+                    return new User();
+                },
+                'UserTable' => function($sm) {
+                    $tableGateway = $sm->get('UserTableGateway');
+                    return new UserTable($tableGateway);
+                },
+                'UserTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('db_master');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new User());
+                    return new TableGateway('user', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Magazine' => function($sm) {
+                    return new Magazine();
+                },
+                'MagazineTable' => function($sm) {
+                    $tableGateway = $sm->get('MagazineTableGateway');
+                    return new MagazineTable($tableGateway);
+                },
+                'MagazineTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('db_master');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Magazine());
+                    return new TableGateway('magazine', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Slot' => function($sm) {
+                    return new Slot();
+                },
+                'SlotTable' => function($sm) {
+                    $tableGateway = $sm->get('SlotTableGateway');
+                    return new SlotTable($tableGateway);
+                },
+                'SlotTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('db_master');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Slot());
+                    return new TableGateway('slot', $dbAdapter, null, $resultSetPrototype);
                 },
             )
         );

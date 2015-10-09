@@ -12,22 +12,22 @@ namespace Mag\Controller;
 use Zend\Di\ServiceLocator;
 use Zend\View\Model\JsonModel;
 
-class SlotController extends DriAbstractRestfulController
+class UserController extends DriAbstractRestfulController
 {
 
     public function create($data)
     {
         $serviceManager = $this->getServiceLocator();
 
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
+        /* @var $UserTable \Mag\Model\UserTable */
+        $UserTable = $serviceManager->get('UserTable');
 
-        /* @var $Slot \Mag\Model\Slot */
-        $Slot = $serviceManager->get('Slot');
+        /* @var $User \Mag\Model\User */
+        $User = $serviceManager->get('User');
 
-        $Slot->exchangeArray($data);
+        $User->exchangeArray($data);
 
-        if($SlotTable->save($Slot)){
+        if($UserTable->save($User)){
             $response = ['Status' => 'Success'];
         }else{
             $response = ['Status' => 'Failure'];
@@ -42,14 +42,14 @@ class SlotController extends DriAbstractRestfulController
 
         $serviceManager = $this->getServiceLocator();
 
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
+        /* @var $UserTable \Mag\Model\UserTable */
+        $UserTable = $serviceManager->get('UserTable');
 
-        /* @var $Slot \Mag\Model\Slot */
-        $Slot = $SlotTable->fetch($id);
+        /* @var $User \Mag\Model\User */
+        $User = $UserTable->fetch($id);
 
-        if($Slot->toArray() != $data) {
-            $Slot->exchangeArray($data);
+        if($User->toArray() != $data) {
+            $User->exchangeArray($data);
         }else{
             return new JsonModel([
                 'Status' => 'Success',
@@ -57,7 +57,7 @@ class SlotController extends DriAbstractRestfulController
             ]);
         }
 
-        if($SlotTable->save($Slot)){
+        if($UserTable->save($User)){
             $response = ['Status' => 'Success'];
         }else{
             $response = ['Status' => 'Failure'];
@@ -67,32 +67,32 @@ class SlotController extends DriAbstractRestfulController
     }
 
     /**
-     * getSlot/key
+     * getUser/key
      * @return JsonModel
      */
     public function get($id)
     {
         $serviceManager = $this->getServiceLocator();
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
+        /* @var $UserTable \Mag\Model\UserTable */
+        $UserTable = $serviceManager->get('UserTable');
 
-        /* @var $Slot \Mag\Model\Slot */
-        $Slot = $SlotTable->fetch($id);
+        /* @var $User \Mag\Model\User */
+        $User = $UserTable->fetch($id);
 
 
-        return new JsonModel($Slot->toArray());
+        return new JsonModel($User->toArray());
     }
 
     /**
-     * getSlot
+     * getUser
      * @return JsonModel
      */
     public function getList()
     {
         $serviceManager = $this->getServiceLocator();
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
-        $items = $SlotTable->fetchAll();
+        /* @var $UserTable \Mag\Model\UserTable */
+        $UserTable = $serviceManager->get('UserTable');
+        $items = $UserTable->fetchAll();
 
         return new JsonModel($items);
     }

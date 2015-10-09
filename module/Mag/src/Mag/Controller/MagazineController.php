@@ -12,22 +12,22 @@ namespace Mag\Controller;
 use Zend\Di\ServiceLocator;
 use Zend\View\Model\JsonModel;
 
-class SlotController extends DriAbstractRestfulController
+class MagazineController extends DriAbstractRestfulController
 {
 
     public function create($data)
     {
         $serviceManager = $this->getServiceLocator();
 
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
+        /* @var $MagazineTable \Mag\Model\MagazineTable */
+        $MagazineTable = $serviceManager->get('MagazineTable');
 
-        /* @var $Slot \Mag\Model\Slot */
-        $Slot = $serviceManager->get('Slot');
+        /* @var $Magazine \Mag\Model\Magazine */
+        $Magazine = $serviceManager->get('Magazine');
 
-        $Slot->exchangeArray($data);
+        $Magazine->exchangeArray($data);
 
-        if($SlotTable->save($Slot)){
+        if($MagazineTable->save($Magazine)){
             $response = ['Status' => 'Success'];
         }else{
             $response = ['Status' => 'Failure'];
@@ -42,14 +42,14 @@ class SlotController extends DriAbstractRestfulController
 
         $serviceManager = $this->getServiceLocator();
 
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
+        /* @var $MagazineTable \Mag\Model\MagazineTable */
+        $MagazineTable = $serviceManager->get('MagazineTable');
 
-        /* @var $Slot \Mag\Model\Slot */
-        $Slot = $SlotTable->fetch($id);
+        /* @var $Magazine \Mag\Model\Magazine */
+        $Magazine = $MagazineTable->fetch($id);
 
-        if($Slot->toArray() != $data) {
-            $Slot->exchangeArray($data);
+        if($Magazine->toArray() != $data) {
+            $Magazine->exchangeArray($data);
         }else{
             return new JsonModel([
                 'Status' => 'Success',
@@ -57,7 +57,7 @@ class SlotController extends DriAbstractRestfulController
             ]);
         }
 
-        if($SlotTable->save($Slot)){
+        if($MagazineTable->save($Magazine)){
             $response = ['Status' => 'Success'];
         }else{
             $response = ['Status' => 'Failure'];
@@ -67,32 +67,32 @@ class SlotController extends DriAbstractRestfulController
     }
 
     /**
-     * getSlot/key
+     * getMagazine/key
      * @return JsonModel
      */
     public function get($id)
     {
         $serviceManager = $this->getServiceLocator();
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
+        /* @var $MagazineTable \Mag\Model\MagazineTable */
+        $MagazineTable = $serviceManager->get('MagazineTable');
 
-        /* @var $Slot \Mag\Model\Slot */
-        $Slot = $SlotTable->fetch($id);
+        /* @var $Magazine \Mag\Model\Magazine */
+        $Magazine = $MagazineTable->fetch($id);
 
 
-        return new JsonModel($Slot->toArray());
+        return new JsonModel($Magazine->toArray());
     }
 
     /**
-     * getSlot
+     * getMagazine
      * @return JsonModel
      */
     public function getList()
     {
         $serviceManager = $this->getServiceLocator();
-        /* @var $SlotTable \Mag\Model\SlotTable */
-        $SlotTable = $serviceManager->get('SlotTable');
-        $items = $SlotTable->fetchAll();
+        /* @var $MagazineTable \Mag\Model\MagazineTable */
+        $MagazineTable = $serviceManager->get('MagazineTable');
+        $items = $MagazineTable->fetchAll();
 
         return new JsonModel($items);
     }
